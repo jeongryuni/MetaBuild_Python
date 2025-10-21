@@ -1,8 +1,8 @@
 students = [
-    ["kim", 80, 90],
-    ["park", 80, 71],
-    ["choi", 30, 75],
-    ["jung", 40, 22],
+    ["kim", 90, 90],
+    ["park", 85, 71],
+    ["choi", 80, 75],
+    ["jung", 45, 82],
     ["hong", 50, 60]
 ]
 
@@ -13,16 +13,21 @@ for student in students:
     student[0] = student[0].upper()
     total = student[1] + student[2]
     avg = total/len(student[1:])
+    # avg = sum(student[1:])/len(student[1:])
     student.append(avg)
 
-    if student[3] >= 70:
-        student.append("A")
+    if student[3] >= 90:
+        grade = "A"
+    elif student[3] >= 80:
+        grade = "B"
+    elif student[3] >= 70:
+        grade = "C"
     elif student[3] >= 60:
-        student.append("B")
-    elif student[3] >= 50:
-        student.append("C")
+        grade = "D"
     else:
-        student.append("D")
+        grade = "F"
+    student.append(grade)
     students.sort()
 
-print(students)
+from pprint import pprint
+pprint(students)
