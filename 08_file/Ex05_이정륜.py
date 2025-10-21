@@ -7,3 +7,6 @@ for line in lines:
 
     fw = open(f"{year}.txt",'a')
     fw.write(line)
+    fw.close()
+fr.close()
+
