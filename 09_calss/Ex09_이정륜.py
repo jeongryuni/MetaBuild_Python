@@ -1,7 +1,4 @@
 # 제품
-from itertools import product
-
-
 class Product:
 
     def __init__(self, fruit, price):
@@ -29,9 +26,11 @@ class Customer():
 
     def checkout(self):
         print(f"{self.name}의 결제정보")
+        total = 0
         for prod, qty in self.cart.items:
+            total += prod.price*qty
             print(f"{prod.fruit} : {prod.price} * {qty} = {prod.price * qty}")
-            print(f"총합 : {prod.price * qty}원")
+        print(f"총합 : {total}원 \n")
 
 p1 = Product("사과", 1000)
 p2 = Product("포도", 2000)
