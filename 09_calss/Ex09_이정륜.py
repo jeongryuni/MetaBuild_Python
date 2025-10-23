@@ -1,13 +1,13 @@
 # 제품
 class Product:
 
-    def __init__(self, fruit, price):
-        self.fruit = fruit
+    def __init__(self, name, price):
+        self.name = name
         self.price = price
 
     def printProduct(self):
-        print(self.fruit, self.price)
-        return f"{self.fruit}, {self.price}"
+        print(self.name, self.price)
+        return f"{self.name}, {self.price}"
 
 
 # 장바구니
@@ -29,7 +29,7 @@ class Customer():
         total = 0
         for prod, qty in self.cart.items:
             total += prod.price*qty
-            print(f"{prod.fruit} : {prod.price} * {qty} = {prod.price * qty}")
+            print(f"{prod.name} : {prod.price} * {qty} = {total}")
         print(f"총합 : {total}원 \n")
 
 p1 = Product("사과", 1000)
@@ -47,7 +47,6 @@ c2 = Customer("정국") # name, cart/ cart = cart()
 c1.addCart(p2, 3)
 c1.addCart(p3, 8)
 c2.addCart(p3, 5)
-
 
 print("------------checkout------------")
 c1.checkout()
