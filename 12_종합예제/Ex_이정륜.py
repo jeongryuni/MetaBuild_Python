@@ -1,3 +1,5 @@
+from pandas.core.computation.expressions import where
+
 book_list=[]
 try:
     fr = open("Book.txt", "r", encoding="utf-8")
@@ -35,17 +37,27 @@ while True:
         # 1. 도서 등록
         if menu == 1:
             print("도서 등록")
-            title = input("도서 제목 : ")
-            author = input("저자 : ")
             while True:
                 try:
-                    price = int(input("가격 :"))
+                    title = input("도서 제목 : ")
+                    for book in book_list:
+                        if title in book["제목"]:
+                            raise ValueError
                 except ValueError:
-                    print("가격은 숫자로 입력해야 합니다.")
+                    print("중복되는 제목입니다.")
+                    continue
                 else:
-                    book_list.append({"제목" :title, "저자" :author, "가격" :price})
-                    print(f"도서 {title} 등록!!\n")
-                    break
+                    author = input("저자 : ")
+                    while True:
+                        try:
+                            price = int(input("가격 :"))
+                        except ValueError:
+                            print("가격은 숫자로 입력해야 합니다.")
+                        else:
+                            book_list.append({"제목" :title, "저자" :author, "가격" :price})
+                            print(f"도서 {title} 등록!!\n")
+                            break
+                break
 
         # 2. 전체 도서 보기
         elif menu == 2:
@@ -111,8 +123,6 @@ while True:
                     if not found:
                             print(f"'{delete_book}'을 찾을 수 없습니다.\n")
                     break
-
-
 
         # 5. 도서 수정
         elif menu == 5:
