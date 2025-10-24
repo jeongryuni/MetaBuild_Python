@@ -1,6 +1,4 @@
-import re
 book_list=[]
-
 try:
     fr = open("Book.txt", "r", encoding="utf-8")
     lines = fr.readlines()
@@ -18,7 +16,7 @@ while True:
           "1. 도서 등록\n"
           "2. 전체 도서 보기\n"
           "3. 도서 검색\n"
-          "4. 도서삭제\n"
+          "4. 도서 삭제\n"
           "5. 도서 가격 수정\n"
           "6. 파일 저장\n"
           "7. 종료"
@@ -55,12 +53,16 @@ while True:
                 if len(book_list) == 0:
                     raise ValueError
             except ValueError:
-                print("조회할 도서가 없습니다.")
+                print("조회할 도서가 없습니다.\n")
+                continue
 
-            for book in book_list:
-                print(f'제목:{book["제목"]}\t| 저자:{book["저자"]}\t| 가격:{book["가격"]}')
+            else:
+                print("----------도서 전체 조회----------")
+                for book in book_list:
+                    print(f'제목:{book["제목"]}\t| 저자:{book["저자"]}\t| 가격:{book["가격"]}')
+                print("--------------------------------")
 
-        # 도서 검색
+        # 3. 도서 검색
         elif menu == 3:
             found = False
             print("도서 검색")
@@ -68,21 +70,20 @@ while True:
                 if len(book_list) == 0:
                     raise ValueError
             except ValueError:
-                print("조회할 도서가 없습니다.")
+                print("조회할 도서가 없습니다.\n")
                 continue
-
-            keyword_book = input("검색할 도서 제목 키워드 :")
-            print(f"'{keyword_book}'검색 결과")
-            for book in book_list:
-                if keyword_book in book["제목"] :
-                    print(f'제목:{book["제목"]}\t| 저자:{book["저자"]}\t| 가격:{book["가격"]}')
-                    found = True
-
-            if not found:
-                    print(f"'{keyword_book}'을 찾을 수 없습니다.\n")
-                    found = False
-
-        # 도서 삭제
+            else:
+                keyword_book = input("검색할 도서 제목 키워드 :")
+                print(f"-----------'{keyword_book}'검색 결과-----------")
+                for book in book_list:
+                    if keyword_book in book["제목"] :
+                        print(f'제목:{book["제목"]}\t| 저자:{book["저자"]}\t| 가격:{book["가격"]}')
+                        found = True
+                if not found:
+                        print(f"'{keyword_book}'을 찾을 수 없습니다.\n")
+                        found = False
+                print("-------------------------------")
+        # 4. 도서 삭제
         elif menu == 4:
             found = False
             print("도서 삭제")
@@ -90,22 +91,75 @@ while True:
                 if len(book_list) == 0:
                     raise ValueError
             except ValueError:
-                print("삭제할 도서가 없습니다.")
+                print("삭제할 도서가 없습니다.\n")
+                continue
 
-            delete_book = input("삭제할 도서 제목 :")
+            while True:
+                try:
+                    delete_book = input("삭제할 도서 제목 :")
+                    if len(delete_book) == 0:
+                        raise ValueError
+                except ValueError:
+                    print("다시 입력해주세요")
+                    continue
+                else:
+                    for book in book_list:
+                        if book["제목"] == delete_book:
+                            book_list.remove(book)
+                            print(f"{delete_book}이 삭제되었습니다.")
+                            found=True
+                    if not found:
+                            print(f"'{delete_book}'을 찾을 수 없습니다.\n")
+                    break
+
+
+
+        # 5. 도서 수정
+        elif menu == 5:
+            found = False
+            try:
+                if len(book_list) == 0:
+                    raise ValueError
+            except ValueError:
+                print("수정할 도서가 없습니다.\n")
+                continue
+
+            modify_book = input("수정할 도서 제목 :")
             for book in book_list:
-                if book["제목"] == delete_book:
-                    book_list.remove(book)
-                    print(f"{delete_book}이 삭제되었습니다.")
-                    found=True
+                if book["제목"] == modify_book:
+                    while True:
+                        try:
+                            modify_price = int(input("수정할 가격 입력 3~5자리 숫자입력 :"))
+                            if 3 > len(str(modify_price)) or  len(str(modify_price)) >6:
+                                raise ValueError
+                        except ValueError:
+                            print("숫자 3~5자리를 입력해주세요!!")
+                        else:
+                            book["가격"] = modify_price
+                            print(f"{modify_book}의 가격이 수정되었습니다.")
+                            found = True
+                            break
 
             if not found:
-                    print(f"'{delete_book}'을 찾을 수 없습니다.\n")
+                print(f"'{modify_book}'을 찾을 수 없습니다.\n")
 
-        elif menu == 5:
-
+        # 6. 파일 저장
         elif menu == 6:
-            pass
+            try:
+                if len(book_list) == 0:
+                    raise ValueError
+            except ValueError:
+                print("저장할 내용이 없습니다.\n")
+                continue
+
+            fw = open("Book.txt", "w", encoding="utf-8")
+            for book in book_list:
+                for key, value in book.items():
+                    fw.write(f'{key} :{value}\t')
+                fw.write('\n')
+            fw.close()
+            print("파일 저장 완료!!\n")
+
         elif menu == 7:
             print("시스템 종료!!")
             break
