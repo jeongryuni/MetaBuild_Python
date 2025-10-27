@@ -48,6 +48,6 @@ eng_score = arr[0:,1]
 print(f"영어점수 출력 : {eng_score}")
 
 # 각 행에서 국어70, 수학80이 넘은 학생 찾기
-cond = (arr[:,0] >= 70) & (arr[:,2] >= 70)
+cond = (arr[:,0] >= 70) & (arr[:,2] >= 80)
 print(arr[cond])
 

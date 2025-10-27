@@ -105,3 +105,14 @@ print(random.randrange(2,30)) # 2~29사이 정수 난수
 
 print(np.random.randint(1,7, 5)) # 1~7숫자 5개 난수
 print(np.random.randint(1,30, (2,3))) # 1~29숫자 2행3열 행렬만들기
+
+# 반복하여 난수 발생 : 중복발생
+list_num = []
+for i in range(10):
+    num = random.randrange(1, 20)
+    list_num.append(num)
+print(list_num)
+
+# sample : 중복이 나오지않음
+list2 = random.sample(range(1,7), 5)
+print(list2)

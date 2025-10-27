@@ -40,12 +40,12 @@ class BookManager:
             break
 
     def remove_book(self):
-        flag = False
+
         if not self.book_list:
             print("등록된 도서가 없습니다.\b")
             return
 
-        found = False
+        flag = False
         delete_book = input("삭제할 도서 입력")
         for book in self.book_list:
             if book.title == delete_book:
