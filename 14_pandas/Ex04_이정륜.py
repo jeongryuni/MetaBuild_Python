@@ -27,7 +27,6 @@ data = [
 
 # df = pd.DataFrame(data, columns=col)
 
-
 # 1. 인덱스 지정 후:
 df.index = ["B1", "B2", "B3", "B4", "B5"]
 print("1. 인덱스 지정 후")
@@ -62,7 +61,7 @@ print()
 df_2019 = df[df["출판연도"]>=2019].reset_index(drop=True)
 print("6. 2019년 이후 출판된 도서")
 print(df_2019)
-
+print()
 
 # 7. 총 매출 컬럼 추가
 df["총매출"] = df["가격"] * df["판매부수"]
@@ -74,3 +73,4 @@ print()
 df_sort_price = df.sort_values(by="가격", ascending=False).iloc[0:3]
 print("8. 가격내림차순 상위 3권")
 print(df_sort_price)
+print()
