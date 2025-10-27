@@ -8,8 +8,8 @@ import numpy as np
 3열 과학
 '''
 
-np.random.seed(0)
-arr = np.random.randint(1,101,(5,4))
+np.random.seed(40)
+arr = np.random.randint(60,101,(5,4))
 print(arr)
 
 # 과목별 총점
@@ -30,8 +30,14 @@ print(f"과목별 최소 : {sub_min}")
 
 # 학생별 평균 >= 70점이면 합격
 stu_avg = np.round(np.average(arr, axis=1))
-result = np.greater_equal(stu_avg, 70)
-print(f"70점이상 합격 : {result}")
+name = np.array(['윤아', '민호', '혜수', '해영', '민지'])
+stu_mean = np.greater_equal(stu_avg, 70)
+print(name[stu_mean]) # 슬라이싱 출력
+
+# 결과 출력
+result = list(map(lambda n, p: (n, '합격' if p else '불합격'), name, stu_mean))
+for r in result:
+    print(r) # 람다출력
 
 # 전체 평균 :
 total_avg = np.average(arr)
@@ -42,9 +48,6 @@ eng_score = arr[0:,1]
 print(f"영어점수 출력 : {eng_score}")
 
 # 각 행에서 국어70, 수학80이 넘은 학생 찾기
-for i in range(len(arr)):
-    kor = arr[i][0]
-    math = arr[i][2]
-    if kor>=70 and math>=80:
-        print(f"국어70, 수학80: {arr[i]}")
+cond = (arr[:,0] >= 70) & (arr[:,2] >= 70)
+print(arr[cond])
 
