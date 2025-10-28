@@ -70,7 +70,9 @@ print(df)
 print()
 
 # 8. 가격내림차순 상위 3권
-df_sort_price = df.sort_values(by="가격", ascending=False).iloc[0:3]
+# df_sort_price = df.sort_values(by="가격", ascending=False).iloc[0:3]
+# df_sort_price = df.sort_values(by="가격", ascending=False)[:3]
+df_sort_price = df.sort_values(by="가격", ascending=False).head(3)
 print("8. 가격내림차순 상위 3권")
 print(df_sort_price)
 print()
